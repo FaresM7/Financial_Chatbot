@@ -1,37 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import { MainContainer, ChatContainer, MessageList, Message, MessageInput, ConversationHeader, Avatar, StarButton, VideoCallButton, VoiceCallButton, InfoButton } from '@chatscope/chat-ui-kit-react';
+import { MainContainer, ChatContainer, MessageList, Message, MessageInput, ConversationHeader, Avatar, InfoButton } from '@chatscope/chat-ui-kit-react';
+import './chat.css'; // Import the CSS file
+import AIImage from './AI.jpg'; // Import the local image
 
 const Chat = () => {
+  const [messages, setMessages] = useState([
+    {
+      message: "Hello! This is your chatbot assistant. How can I help you today?",
+      sentTime: "just now",
+      sender: "Chatbot",
+      direction: "incoming"
+    }
+  ]);
+
+  const handleSend = (innerHtml) => {
+    const newMessage = {
+      message: innerHtml,
+      sentTime: "just now",
+      sender: "You",
+      direction: "outgoing"
+    };
+
+    setMessages([...messages, newMessage]);
+
+    // Auto-reply after a short delay
+    setTimeout(() => {
+      const replyMessage = {
+        message: "This is an automatic reply!",
+        sentTime: "just now",
+        sender: "Bot",
+        direction: "incoming"
+      };
+      setMessages(prevMessages => [...prevMessages, replyMessage]);
+    }, 1000);
+  };
+
   return (
-    <div style={{ position: "relative", height: "600px" }}>
+    <div className="chat-wrapper">
       <MainContainer>
         <ChatContainer>
-        <ConversationHeader>
-  <ConversationHeader.Back />
-  <Avatar
-    name="Emily"
-    src="https://chatscope.io/storybook/react/assets/emily-xzL8sDL2.svg"
-  />
-  <ConversationHeader.Content
-    info="Active 10 mins ago"
-    userName="Emily"
-  />
-  <ConversationHeader.Actions>
-    <StarButton title="Add to favourites" />
-    <VoiceCallButton title="Start voice call" />
-    <VideoCallButton title="Start video call" />
-    <InfoButton title="Show info" />
-  </ConversationHeader.Actions>
-</ConversationHeader>
+          <ConversationHeader>
+            <Avatar
+              name="Chatbot"
+              src={AIImage}
+            />
+            <ConversationHeader.Content
+              info="Active Now!"
+              userName="Your chat assistant :)"
+            />
+            <ConversationHeader.Actions>
+            </ConversationHeader.Actions>
+          </ConversationHeader>
           <MessageList>
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "just now",
-              sender: "Joe"
-            }} />
+            {messages.map((msg, index) => (
+              <Message
+                key={index}
+                model={{
+                  message: msg.message,
+                  sentTime: msg.sentTime,
+                  sender: msg.sender,
+                  direction: msg.direction
+                }}
+              />
+            ))}
           </MessageList>
-          <MessageInput placeholder="Type message here" />
+          <MessageInput placeholder="Type message here" onSend={handleSend} attachButton={false} />
         </ChatContainer>
       </MainContainer>
     </div>
