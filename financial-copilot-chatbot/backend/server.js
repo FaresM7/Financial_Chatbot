@@ -2,14 +2,14 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
-const { loadFinancialData, getFinancialData, generateResponse } = require('./financialLogic.js'); // Adjusted path
+const { loadFinancialData, getFinancialData, generateResponse } = require('./financialLogic.js');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../build'))); // Adjusted path
+app.use(express.static(path.join(__dirname, '../build'))); 
 
 // Middleware to parse JSON bodies
 app.use(express.json());
