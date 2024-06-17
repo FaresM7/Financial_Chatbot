@@ -8,7 +8,7 @@ Marlis Wagner      Id:22301867
 
 ## Downloas Lib:
 
-node.js (install from the internet https://nodejs.org/en/download/package-manager)\
+node.js (install from the internet https://nodejs.org/en/download/package-manager)
 
 ### `npm run build`
 
