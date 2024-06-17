@@ -21,7 +21,7 @@ function generateResponse(message, userInfo) {
   }
 
   const user = userInfo.name;
-  const userRecord = financialData.users.find(u => u.name === user && u.id === parseInt(userInfo.id));
+  const userRecord = financialData.users.find(u => u.name.toUpperCase() === user.toUpperCase() && u.id === parseInt(userInfo.id));
   if (!userRecord) {
     return 'User not found.';
   }
@@ -31,7 +31,7 @@ function generateResponse(message, userInfo) {
   // Define keywords for different categories
   const categories = {
     savings: ['savings', 'save', 'saved'],
-    spending: ['spending', 'expenditure', 'expenses'],
+    spending: ['spending', 'expenditure', 'expenses', 'spend'],
     monthlyStatement: ['monthly statement', 'statement for this month', 'monthly report', 'monthly summary'],
     assetOverview: ['asset overview', 'overview of assets', 'assets summary', 'assets report'],
     income: ['income', 'earnings', 'salary', 'wage'],

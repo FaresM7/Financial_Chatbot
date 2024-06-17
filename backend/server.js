@@ -44,11 +44,14 @@ io.on('connection', (socket) => {
         const name = nameMatch[1];
         const id = parseInt(idMatch[1]);
         const financialData = getFinancialData();
-        const userRecord = financialData?.users.find(u => u.name.toLowerCase() === name.toLowerCase() && u.id === id);
+        const userRecord = financialData.users.find(u => u.name.toUpperCase() === name.toUpperCase() && u.id === id);
         if (userRecord) {
           userInfo.name = name;
           userInfo.id = id;
-          socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today?`);
+          socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today? 
+            \n You can ask: \n How much money did I saved? 
+            \n What are my investment in stocks?
+            \n How much money did I spend?`);
         } else {
           socket.emit('message', 'Sorry, I couldn\'t understand. The provided ID & Name is wrong.');
         }
