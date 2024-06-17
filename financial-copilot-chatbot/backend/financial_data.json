@@ -2,7 +2,7 @@
   "users": [
     {
       "id": 1,
-      "name": "Marlis",
+      "name": "Saad",
       "monthlyStatements": ["statement.pdf"],
   
       "spendingOverYears": {
@@ -69,7 +69,7 @@
     },
     {
       "id": 4,
-      "name": "Saad",
+      "name": "Marlis",
       "monthlyStatements": ["january_statement.pdf", "february_statement.pdf", "march_statement.pdf"],
       "assetOverview": {
         "stocks": 80000,

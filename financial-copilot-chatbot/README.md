@@ -68,3 +68,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+### Question
+
+Do we need to write more financal data?
+Do we need to have the chatbot understand 'sav' (increas the tokeniser and check for parts of the word)?
+Do we need more question?
+Different user?
+Run and Build it in Azure?

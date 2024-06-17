@@ -4,7 +4,7 @@ let financialData;
 
 async function loadFinancialData() {
   try {
-    const data = await fs.readFile('./backend/financial_data.json', 'utf-8');
+    const data = await fs.readFile('./financial_data.json', 'utf-8');
     financialData = JSON.parse(data);
   } catch (err) {
     console.error('Error reading financial data file:', err);
