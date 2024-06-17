@@ -2,7 +2,6 @@
 
 ## Downloas Lib:
 
-npm (npm install)\
 node.js (install from the internet https://nodejs.org/en/download/package-manager)\
 
 ### `npm run build`
