@@ -28,4 +28,4 @@ Do we need to write more financal data?\
 Do we need to have the chatbot understand 'sav' (increas the tokeniser and check for parts of the word)?\
 Do we need more question?\
 Different user?\
-Run and Build it in Azure?\
+Run and Build it in Azure?
