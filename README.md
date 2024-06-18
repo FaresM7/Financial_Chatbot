@@ -10,6 +10,9 @@ Marlis Wagner      Id:22301867
 
 node.js (install from the internet https://nodejs.org/en/download/package-manager)
 
+### `npm install`
+Installs the required packages in dependencies
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
