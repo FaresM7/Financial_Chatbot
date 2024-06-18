@@ -24,8 +24,16 @@ To run the server on a local host of port 3000. Type: 'node .\backend\server.js'
 
 # Question
 
-Do we need to write more financal data?\
+Do we need to write more financal data? 20 Question answer hirachie\
 Do we need to have the chatbot understand 'sav' (increas the tokeniser and check for parts of the word)?\
 Do we need more question?\
 Different user?\
 Run and Build it in Azure?
+
+# TO DO
+
+1. Keywords in a JSON
+2. Responding
+3. More Question/ General Questions
+4. Hierarchy of questions
+5. Deployment
