@@ -1,8 +1,9 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
+const bodyParser = require('body-parser');
 const path = require('path');
-const { loadFinancialData, getFinancialData, generateResponse } = require('./financialLogic.js');
+const { loadFinancialData, loadKeywords, getFinancialData, generateResponse } = require('./financialLogic.js');
 
 const app = express();
 const server = http.createServer(app);
@@ -12,51 +13,44 @@ const io = socketIo(server);
 app.use(express.static(path.join(__dirname, '../build'))); 
 
 // Middleware to parse JSON bodies
-app.use(express.json());
+app.use(bodyParser.json());
 
-// Load financial data
-loadFinancialData().then(() => {
-  console.log('Financial data loaded');
+// Load financial data and keywords
+Promise.all([loadFinancialData(), loadKeywords()]).then(() => {
+  console.log('Financial data and keywords loaded');
 }).catch(err => {
-  console.error('Failed to load financial data:', err);
+  console.error('Failed to load financial data and keywords:', err);
 });
 
 // Socket.IO connection
 io.on('connection', (socket) => {
   console.log('A user connected');
 
-  
-
-  // Prompt the user for their name
-  socket.emit('message', 'To assist you better, please provide your name and ID in the format: "My name is [name] and my ID is [ID]".');
+  // Send a welcome message to the user
+  socket.emit('message', 'Welcome to the Financial Co-pilot Chatbot!');
 
   let userInfo = {};
+
+  // Ask for the user's name
+  socket.emit('message', 'What is your name?');
 
   // Handle incoming messages
   socket.on('message', (message) => {
     console.log('Message received:', message);
     // Process the message
-    if (!userInfo.name || !userInfo.id) {
-      const nameMatch = message.match(/My name is (\w+)/i);
-      const idMatch = message.match(/My ID is (\d+)/i);
-
-      if (nameMatch && idMatch) {
-        const name = nameMatch[1];
-        const id = parseInt(idMatch[1]);
-        const financialData = getFinancialData();
-        const userRecord = financialData.users.find(u => u.name.toUpperCase() === name.toUpperCase() && u.id === id);
-        if (userRecord) {
-          userInfo.name = name;
-          userInfo.id = id;
-          socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today? 
-            \n You can ask: \n How much money did I saved? 
-            \n What are my investment in stocks?
-            \n How much money did I spend?`);
-        } else {
-          socket.emit('message', 'Sorry, I couldn\'t understand. The provided ID & Name is wrong.');
-        }
+    if (!userInfo.name) {
+      userInfo.name = message.trim(); // Assume the first message is the name
+      socket.emit('message', `Thank you, ${userInfo.name}! Now, please provide your ID.`);
+    } else if (!userInfo.id) {
+      userInfo.id = parseInt(message.trim()); // Assume the second message is the ID
+      const financialData = getFinancialData();
+      const userRecord = financialData.users.find(u => u.name.toLowerCase() === userInfo.name.toLowerCase() && u.id === userInfo.id);
+      if (userRecord) {
+        socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today?`);
       } else {
-        socket.emit('message', 'Sorry, I couldn\'t understand. Please provide your name and ID again.');
+        socket.emit('message', 'Sorry, the provided ID is incorrect for the name you provided.');
+        userInfo = {}; // Reset userInfo
+        socket.emit('message', 'Please provide your name again.');
       }
     } else {
       // Once name and ID are provided, handle the user's queries

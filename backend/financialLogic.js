@@ -1,13 +1,23 @@
 const fs = require('fs').promises;
 
 let financialData;
+let keywords;
 
 async function loadFinancialData() {
   try {
-    const data = await fs.readFile('./financial_data.json', 'utf-8');
+    const data = await fs.readFile('financial_data.json', 'utf-8');
     financialData = JSON.parse(data);
   } catch (err) {
     console.error('Error reading financial data file:', err);
+  }
+}
+
+async function loadKeywords() {
+  try {
+    const data = await fs.readFile('keywords.json', 'utf-8');
+    keywords = JSON.parse(data);
+  } catch (err) {
+    console.error('Error reading keywords file:', err);
   }
 }
 
@@ -20,41 +30,20 @@ function generateResponse(message, userInfo) {
     return 'Financial data not available.';
   }
 
+  if (!keywords) {
+    return 'Keywords not available.';
+  }
+
   const user = userInfo.name;
-  const userRecord = financialData.users.find(u => u.name.toUpperCase() === user.toUpperCase() && u.id === parseInt(userInfo.id));
+  const userRecord = financialData.users.find(u => u.name.toLowerCase() === user.toLowerCase() && u.id === parseInt(userInfo.id));
   if (!userRecord) {
     return 'User not found.';
   }
 
   const lowerCaseMessage = message.toLowerCase();
 
-  // Define keywords for different categories
-  const categories = {
-    savings: ['savings', 'save', 'saved'],
-    spending: ['spending', 'expenditure', 'expenses', 'spend'],
-    monthlyStatement: ['monthly statement', 'statement for this month', 'monthly report', 'monthly summary'],
-    assetOverview: ['asset overview', 'overview of assets', 'assets summary', 'assets report'],
-    income: ['income', 'earnings', 'salary', 'wage'],
-    debt: ['debt', 'loan', 'borrow', 'owe'],
-    investment: ['investment', 'invest', 'stocks', 'bonds'],
-    insurance: ['insurance', 'coverage', 'policy'],
-    creditScore: ['credit score', 'credit rating'],
-    tax: ['tax', 'taxes', 'tax return', 'tax refund'],
-    retirementFund: ['retirement fund', 'pension', '401k', 'ira'],
-    mortgage: ['mortgage', 'home loan'],
-    rent: ['rent', 'lease'],
-    utilityBills: ['utility bills', 'electricity bill', 'water bill', 'internet bill'],
-    carLoan: ['car loan', 'auto loan'],
-    studentLoan: ['student loan', 'education loan'],
-    howFucked: ['how fucked'],
-    canIAffordRent: ['rent'],
-    canIAffordToLive: ['live'],
-    canIAffordFood: ['food']
-  };
-
-  // Iterate over the categories to find a matching keyword and generate the appropriate response
-  for (const [category, keywords] of Object.entries(categories)) {
-    if (keywords.some(keyword => lowerCaseMessage.includes(keyword))) {
+  for (const [category, categoryKeywords] of Object.entries(keywords)) {
+    if (categoryKeywords.some(keyword => lowerCaseMessage.includes(keyword))) {
       switch (category) {
         case 'savings':
           return `${userRecord.name}'s savings: $${userRecord.savings}`;
@@ -63,11 +52,11 @@ function generateResponse(message, userInfo) {
         case 'monthlyStatement':
           return `Here are ${userRecord.name}'s monthly statements: <a href="${userRecord.monthlyStatements[0]}" target="_blank">View PDF</a>`;
         case 'assetOverview':
-          return `${userRecord.name}'s asset overview: ${userRecord.assetOverview}`;
+          return `${userRecord.name}'s asset overview: ${userRecord.assetOverview.join(', ')}`;
         case 'income':
-          return `${userRecord.name}'s income: $${userRecord.income}`;
+          return `${userRecord.name}'s income: $${JSON.stringify(userRecord.income)}`;
         case 'debt':
-          return `${userRecord.name}'s debt: $${userRecord.debt}`;
+          return `${userRecord.name}'s debt: $${JSON.stringify(userRecord.debt)}`;
         case 'investment':
           return `${userRecord.name}'s investments: ${JSON.stringify(userRecord.investments)}`;
         case 'insurance':
@@ -89,22 +78,25 @@ function generateResponse(message, userInfo) {
         case 'studentLoan':
           return `${userRecord.name}'s student loan details: ${JSON.stringify(userRecord.studentLoan)}`;
         case 'howFucked':
-          return `${userRecord.name}'s status: ${userRecord.HowFuckedAmI}`;
+          return `${userRecord.name}'s status: ${JSON.stringify(userRecord.HowFuckedAmI)}`;
         case 'canIAffordRent':
-          return `${userRecord.name}'s rent status: ${userRecord.CanIAffordRent}`;
+          return `${userRecord.name}'s rent status: ${JSON.stringify(userRecord.CanIAffordRent)}`;
         case 'canIAffordToLive':
-          return `${userRecord.name}'s living status: ${userRecord.CanIAffordToLive}`;
+          return `${userRecord.name}'s living status: ${JSON.stringify(userRecord.CanIAffordToLive)}`;
         case 'canIAffordFood':
-          return `${userRecord.name}'s food status: ${userRecord.CanIAffordFood}`;
+          return `${userRecord.name}'s food status: ${JSON.stringify(userRecord.CanIAffordFood)}`;
+        default:
+          return 'I\'m sorry, I\'m not sure how to answer that. Ask me again!';
       }
     }
   }
 
-  return 'I\'m sorry, I\'m not sure how to answer that.';
+  return 'I\'m sorry, I\'m not sure how to answer that. Ask me again! \n You can ask about your Savings or your Spendings';
 }
 
 module.exports = {
   loadFinancialData,
+  loadKeywords,
   getFinancialData,
   generateResponse
 };

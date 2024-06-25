@@ -15,10 +15,10 @@
       "spending": 2000,
       "mortgage": 1500,
       "debt": 10000,
-      "HowFuckedAmI" : "very very very ...fucked",
-      "CaniAffordFood" : " No you stupid fuck",
-      "CanIAffordRent" : "No you stupid fuck",
-      "CanIAffordToLive": "Nah, Not really",
+      "income" : 520,
+      "CanIAffordFood" : 200,
+      "CanIAffordRent" : 350,
+      "CanIAffordToLive": 800,
       
       "assetOverview": [
        "stocks: 50000 \n",
@@ -89,7 +89,7 @@
     },
     {
       "id": 5,
-      "name": "Sophia",
+      "name": "Kero",
       "monthlyStatements": ["january_statement.pdf", "february_statement.pdf", "march_statement.pdf"],
       "assetOverview": {
         "stocks": 90000,
