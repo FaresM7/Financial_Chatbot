@@ -26,9 +26,6 @@ Promise.all([loadFinancialData(), loadKeywords()]).then(() => {
 io.on('connection', (socket) => {
   console.log('A user connected');
 
-  // Send a welcome message to the user
-  socket.emit('message', 'Welcome to the Financial Co-pilot Chatbot!');
-
   let userInfo = {};
 
   // Ask for the user's name

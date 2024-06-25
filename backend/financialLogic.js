@@ -52,7 +52,7 @@ function generateResponse(message, userInfo) {
         case 'monthlyStatement':
           return `Here are ${userRecord.name}'s monthly statements: <a href="${userRecord.monthlyStatements[0]}" target="_blank">View PDF</a>`;
         case 'assetOverview':
-          return `${userRecord.name}'s asset overview: ${userRecord.assetOverview.join(', ')}`;
+          return `${userRecord.name}'s asset overview: ${userRecord.assetOverview.join('\n')}`;
         case 'income':
           return `${userRecord.name}'s income: $${JSON.stringify(userRecord.income)}`;
         case 'debt':
@@ -91,7 +91,7 @@ function generateResponse(message, userInfo) {
     }
   }
 
-  return 'I\'m sorry, I\'m not sure how to answer that. Ask me again! \n You can ask about your Savings or your Spendings';
+  return 'I\'m sorry, I\'m not sure how to answer that. Ask me again! \nYou can ask about your Savings or your Spendings';
 }
 
 module.exports = {
