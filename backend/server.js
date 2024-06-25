@@ -31,30 +31,44 @@ io.on('connection', (socket) => {
   // Ask for the user's name
   socket.emit('message', 'What is your name?');
 
-  // Handle incoming messages
-  socket.on('message', (message) => {
-    console.log('Message received:', message);
-    // Process the message
-    if (!userInfo.name) {
-      userInfo.name = message.trim(); // Assume the first message is the name
+ // Function to ask for the user's name
+ const askForName = () => {
+  socket.emit('message', 'What is your name?');
+};
+
+// Initial prompt for the name
+askForName();
+
+// Handle incoming messages
+socket.on('message', (message) => {
+  console.log('Message received:', message);
+  
+  if (!userInfo.name) {
+    const name = message.trim();
+    const userRecord = financialData.users.find(u => u.name.toLowerCase() === name.toLowerCase());
+    if (userRecord) {
+      userInfo.name = name;
       socket.emit('message', `Thank you, ${userInfo.name}! Now, please provide your ID.`);
-    } else if (!userInfo.id) {
-      userInfo.id = parseInt(message.trim()); // Assume the second message is the ID
-      const financialData = getFinancialData();
-      const userRecord = financialData.users.find(u => u.name.toLowerCase() === userInfo.name.toLowerCase() && u.id === userInfo.id);
-      if (userRecord) {
-        socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today?`);
-      } else {
-        socket.emit('message', 'Sorry, the provided ID is incorrect for the name you provided.');
-        userInfo = {}; // Reset userInfo
-        socket.emit('message', 'Please provide your name again.');
-      }
     } else {
-      // Once name and ID are provided, handle the user's queries
-      const response = generateResponse(message, userInfo);
-      socket.emit('message', response);
+      socket.emit('message', `Sorry, I couldn't find the name ${name} in our records. Please provide a valid name.`);
+      askForName(); // Ask for name again
     }
-  });
+  } else if (!userInfo.id) {
+    userInfo.id = parseInt(message.trim());
+    const userRecord = financialData.users.find(u => u.name.toLowerCase() === userInfo.name.toLowerCase() && u.id === userInfo.id);
+    if (userRecord) {
+      socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today?`);
+    } else {
+      socket.emit('message', 'Sorry, the provided ID is incorrect for the name you provided.');
+      userInfo = {}; // Reset userInfo
+      askForName(); // Ask for name again
+    }
+  } else {
+    // Once name and ID are provided, handle the user's queries
+    const response = generateResponse(message, userInfo);
+    socket.emit('message', response);
+  }
+});
 
   // Handle disconnection
   socket.on('disconnect', () => {
