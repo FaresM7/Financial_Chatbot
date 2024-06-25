@@ -2,7 +2,9 @@
 
 Fares Elbermawy    Id:12306597\
 Saad Alam          Id:22200033\
-Marlis Wagner      Id:22301867
+Marlis Wagner      Id:22301867\
+\
+
 
 # How to run
 
@@ -35,8 +37,6 @@ Run and Build it in Azure?
 
 # TO DO
 
-1. Keywords in a JSON
-2. Responding
-3. More Question/ General Questions
-4. Hierarchy of questions
-5. Deployment
+1. More Question/ General Questions
+2. Hierarchy of questions
+3. Deployment
