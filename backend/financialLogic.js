@@ -5,7 +5,7 @@ let keywords;
 
 async function loadFinancialData() {
   try {
-    const data = await fs.readFile('financial_data.json', 'utf-8');
+    const data = await fs.readFile('backend/financial_data.json', 'utf-8');
     financialData = JSON.parse(data);
   } catch (err) {
     console.error('Error reading financial data file:', err);
@@ -14,7 +14,7 @@ async function loadFinancialData() {
 
 async function loadKeywords() {
   try {
-    const data = await fs.readFile('keywords.json', 'utf-8');
+    const data = await fs.readFile('backend/keywords.json', 'utf-8');
     keywords = JSON.parse(data);
   } catch (err) {
     console.error('Error reading keywords file:', err);
@@ -26,7 +26,7 @@ function getFinancialData() {
 }
 
 function calculateTotalSpending(userRecord, startMonth, endMonth) {
-  const monthMap = {
+  const monthMap = { // Move this to the keyword
     "january": "SPJan",
     "february": "SPFeb",
     "march": "SPMar",
@@ -60,7 +60,7 @@ function calculateTotalSpending(userRecord, startMonth, endMonth) {
 }
 
 function calculateMonthlySavings(userRecord, month) {
-  const monthMap = {
+  const monthMap = {  // Move this to the keyword
     "january": "SPJan",
     "february": "SPFeb",
     "march": "SPMar",
@@ -118,7 +118,7 @@ function generateResponse(message, userInfo, userContext) {
     } else {
       return 'Please specify what you would like to know about (e.g., spendings, savings, overview stocks, income, other).';
     }
-  } else if (userContext.topic === 'spending') {
+  } else if (userContext.topic === 'spending') {  //Kero Please work on Adding Keyowrds for savings and Spendings cases below. It should work on all possible queries regarding this
     if (lowerCaseMessage.includes('total')) {
       const totalSpending = Object.values(userRecord.spending).reduce((acc, val) => acc + val, 0);
       return `Your total spendings are $${totalSpending}. Would you like to know for a particular month or year?`;
