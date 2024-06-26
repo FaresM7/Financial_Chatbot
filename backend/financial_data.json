@@ -3,15 +3,14 @@
     {
       "id": 1,
       "name": "Saad",
-      "monthlyStatements": ["statement.pdf"],
-  
-      "spendingOverYears": {
-        "2022": 5000,
-        "2023": 6000,
-        "2024": 7000
-      },
-      "imageFiles": ["spending.png"],
+ 
+      "spendingOverYears": "Which year do you want to know?",
+      "2022": 5000,
+      "2023": 6000,
+      "2024": 7000,
+
       "savings": 5000,
+
       "SPJan": 533,
       "SPFeb": 760,
       "SPMar": 522,
@@ -19,9 +18,11 @@
       "SPMay": 500,
       "SPJun": 577,
       "SPJul": 536,
+
       "mortgage": 1500,
       "debt": 10000,
       "income" : 520,
+      
       "CanIAffordFood" : 200,
       "CanIAffordRent" : 350,
       "CanIAffordToLive": 800,
@@ -49,7 +50,13 @@
       },
       "imageFiles": ["asset_graph.png", "spending_graph.png"],
       "savings": 7000,
-      "spending": 2500,
+      "SPJan": 463,
+      "SPFeb": 607,
+      "SPMar": 245,
+      "SPApr": 565,
+      "SPMay": 570,
+      "SPJun": 456,
+      "SPJul": 567,
       "mortgage": 1800,
       "debt": 12000
     },
@@ -69,7 +76,13 @@
       },
       "imageFiles": ["asset_graph.png", "spending_graph.png"],
       "savings": 10000,
-      "spending": 3000,
+      "SPJan": 533,
+      "SPFeb": 760,
+      "SPMar": 522,
+      "SPApr": 455,
+      "SPMay": 500,
+      "SPJun": 577,
+      "SPJul": 536,
       "mortgage": 2000,
       "debt": 15000
     },
@@ -89,7 +102,13 @@
       },
       "imageFiles": ["asset_graph.png", "spending_graph.png"],
       "savings": 15000,
-      "spending": 3500,
+      "SPJan": 533,
+      "SPFeb": 760,
+      "SPMar": 522,
+      "SPApr": 455,
+      "SPMay": 500,
+      "SPJun": 577,
+      "SPJul": 536,
       "mortgage": 2200,
       "debt": 20000
     },
@@ -109,7 +128,13 @@
       },
       "imageFiles": ["asset_graph.png", "spending_graph.png"],
       "savings": 20000,
-      "spending": 4000,
+      "SPJan": 533,
+      "SPFeb": 760,
+      "SPMar": 522,
+      "SPApr": 455,
+      "SPMay": 500,
+      "SPJun": 577,
+      "SPJul": 536,
       "mortgage": 2500,
       "debt": 25000
     }
