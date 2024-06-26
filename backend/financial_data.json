@@ -3,14 +3,15 @@
     {
       "id": 1,
       "name": "Saad",
- 
-      "spendingOverYears": "Which year do you want to know?",
-      "2022": 5000,
-      "2023": 6000,
-      "2024": 7000,
-
+      "monthlyStatements": ["statement.pdf"],
+  
+      "spendingOverYears": {
+        "2022": 5000,
+        "2023": 6000,
+        "2024": 7000
+      },
+      "imageFiles": ["spending.png"],
       "savings": 5000,
-
       "SPJan": 533,
       "SPFeb": 760,
       "SPMar": 522,
@@ -18,21 +19,19 @@
       "SPMay": 500,
       "SPJun": 577,
       "SPJul": 536,
-
       "mortgage": 1500,
       "debt": 10000,
       "income" : 520,
-      
       "CanIAffordFood" : 200,
       "CanIAffordRent" : 350,
       "CanIAffordToLive": 800,
-      
       "assetOverview": [
-       "stocks: 50000",
-        "Real_Estate: 200000",
-        "savingsAccount: 10000"
+        "stocks: 50000",
+        "realEstate: 200000",
+        "savingsAccount: 10000",
+        "bonds: 5000",
+        "retirementFund: 30000"
       ]
-
     },
     {
       "id": 2,
@@ -41,7 +40,9 @@
       "assetOverview": {
         "stocks": 60000,
         "realEstate": 250000,
-        "savingsAccount": 15000
+        "savingsAccount": 15000,
+        "bonds": 7000,
+        "retirementFund": 35000
       },
       "spendingOverYears": {
         "2022": 6000,
@@ -50,15 +51,15 @@
       },
       "imageFiles": ["asset_graph.png", "spending_graph.png"],
       "savings": 7000,
-      "SPJan": 463,
-      "SPFeb": 607,
-      "SPMar": 245,
-      "SPApr": 565,
-      "SPMay": 570,
-      "SPJun": 456,
-      "SPJul": 567,
+      "spending": 2500,
       "mortgage": 1800,
-      "debt": 12000
+      "debt": 12000,
+      "income": 600,
+      "incomeSources": {
+        "job": 450,
+        "investments": 120,
+        "other": 30
+      }
     },
     {
       "id": 3,
@@ -67,7 +68,9 @@
       "assetOverview": {
         "stocks": 70000,
         "realEstate": 300000,
-        "savingsAccount": 20000
+        "savingsAccount": 20000,
+        "bonds": 8000,
+        "retirementFund": 40000
       },
       "spendingOverYears": {
         "2022": 7000,
@@ -76,15 +79,15 @@
       },
       "imageFiles": ["asset_graph.png", "spending_graph.png"],
       "savings": 10000,
-      "SPJan": 533,
-      "SPFeb": 760,
-      "SPMar": 522,
-      "SPApr": 455,
-      "SPMay": 500,
-      "SPJun": 577,
-      "SPJul": 536,
+      "spending": 3000,
       "mortgage": 2000,
-      "debt": 15000
+      "debt": 15000,
+      "income": 700,
+      "incomeSources": {
+        "job": 500,
+        "investments": 150,
+        "other": 50
+      }
     },
     {
       "id": 4,
@@ -93,7 +96,9 @@
       "assetOverview": {
         "stocks": 80000,
         "realEstate": 350000,
-        "savingsAccount": 25000
+        "savingsAccount": 25000,
+        "bonds": 9000,
+        "retirementFund": 45000
       },
       "spendingOverYears": {
         "2022": 8000,
@@ -102,15 +107,15 @@
       },
       "imageFiles": ["asset_graph.png", "spending_graph.png"],
       "savings": 15000,
-      "SPJan": 533,
-      "SPFeb": 760,
-      "SPMar": 522,
-      "SPApr": 455,
-      "SPMay": 500,
-      "SPJun": 577,
-      "SPJul": 536,
+      "spending": 3500,
       "mortgage": 2200,
-      "debt": 20000
+      "debt": 20000,
+      "income": 800,
+      "incomeSources": {
+        "job": 600,
+        "investments": 160,
+        "other": 40
+      }
     },
     {
       "id": 5,
@@ -119,7 +124,9 @@
       "assetOverview": {
         "stocks": 90000,
         "realEstate": 400000,
-        "savingsAccount": 30000
+        "savingsAccount": 30000,
+        "bonds": 10000,
+        "retirementFund": 50000
       },
       "spendingOverYears": {
         "2022": 9000,
@@ -128,16 +135,15 @@
       },
       "imageFiles": ["asset_graph.png", "spending_graph.png"],
       "savings": 20000,
-      "SPJan": 533,
-      "SPFeb": 760,
-      "SPMar": 522,
-      "SPApr": 455,
-      "SPMay": 500,
-      "SPJun": 577,
-      "SPJul": 536,
+      "spending": 4000,
       "mortgage": 2500,
-      "debt": 25000
+      "debt": 25000,
+      "income": 900,
+      "incomeSources": {
+        "job": 700,
+        "investments": 170,
+        "other": 30
+      }
     }
-]
-
+  ]
 }

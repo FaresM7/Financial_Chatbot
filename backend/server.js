@@ -26,7 +26,11 @@ Promise.all([loadFinancialData(), loadKeywords()]).then(() => {
 io.on('connection', (socket) => {
   console.log('A user connected');
 
+  // Send a welcome message to the user
+  socket.emit('message', 'Welcome to the Financial Co-pilot Chatbot!');
+
   let userInfo = {};
+  let userContext = {};
 
   // Ask for the user's name
   socket.emit('message', 'What is your name?');
@@ -43,7 +47,7 @@ io.on('connection', (socket) => {
       const financialData = getFinancialData();
       const userRecord = financialData.users.find(u => u.name.toLowerCase() === userInfo.name.toLowerCase() && u.id === userInfo.id);
       if (userRecord) {
-        socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today?`);
+        socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today? Would you like to ask about:\n- Spendings\n- Savings\n- Overview stocks\n- Income\n- Other`);
       } else {
         socket.emit('message', 'Sorry, the provided ID is incorrect for the name you provided.');
         userInfo = {}; // Reset userInfo
@@ -51,7 +55,7 @@ io.on('connection', (socket) => {
       }
     } else {
       // Once name and ID are provided, handle the user's queries
-      const response = generateResponse(message, userInfo);
+      const response = generateResponse(message, userInfo, userContext);
       socket.emit('message', response);
     }
   });
@@ -61,6 +65,7 @@ io.on('connection', (socket) => {
     console.log('A user disconnected');
     // Reset user info on disconnection
     userInfo = {};
+    userContext = {};
   });
 });
 
