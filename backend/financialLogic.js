@@ -118,6 +118,7 @@ function generateResponse(message, userInfo, userContext) {
     } else {
       return 'Please specify what you would like to know about (e.g., spendings, savings, overview stocks, income, other).';
     }
+    //Kero Please work on Adding Keyowrds for savings and Spendings cases below. It should work on all possible queries regarding this
   } else if (userContext.topic === 'spending') {
     if (lowerCaseMessage.includes('total')) {
       const totalSpending = Object.values(userRecord.spending).reduce((acc, val) => acc + val, 0);
