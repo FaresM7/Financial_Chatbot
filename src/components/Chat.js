@@ -17,12 +17,6 @@ const socket = io(); // Initialize Socket.IO client
 
 const Chat = () => {
   const [messages, setMessages] = useState([
-    {
-      message: "Welcome to the Financial Co-pilot Chatbot!",
-      sentTime: "just now",
-      sender: "Chatbot",
-      direction: "incoming"
-    }
   ]);
 
   useEffect(() => {

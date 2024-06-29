@@ -5,7 +5,7 @@ let keywords;
 
 async function loadFinancialData() {
   try {
-    const data = await fs.readFile('backend/financial_data.json', 'utf-8');
+    const data = await fs.readFile('./financial_data.json', 'utf-8');
     financialData = JSON.parse(data);
   } catch (err) {
     console.error('Error reading financial data file:', err);
@@ -14,7 +14,7 @@ async function loadFinancialData() {
 
 async function loadKeywords() {
   try {
-    const data = await fs.readFile('backend/keywords.json', 'utf-8');
+    const data = await fs.readFile('./keywords.json', 'utf-8');
     keywords = JSON.parse(data);
   } catch (err) {
     console.error('Error reading keywords file:', err);
