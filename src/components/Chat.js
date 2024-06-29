@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import { MainContainer, ChatContainer, MessageList, Message, MessageInput, ConversationHeader, Avatar } from '@chatscope/chat-ui-kit-react';
+import {
+  MainContainer,
+  ChatContainer,
+  MessageList,
+  Message,
+  MessageInput,
+  ConversationHeader,
+  Avatar
+} from '@chatscope/chat-ui-kit-react';
 import AIImage from '../images/AI.jpg'; // Import the local image
 import '../chat.css'; // Import the CSS file
 
@@ -52,13 +60,13 @@ const Chat = () => {
 
   return (
     <div className="chat-wrapper">
-      <MainContainer>
+      <MainContainer className="chat-container">
         <ChatContainer>
           <ConversationHeader>
             <Avatar name="Chatbot" src={AIImage} />
             <ConversationHeader.Content info="Active Now!" userName="Your chat assistant :)" />
           </ConversationHeader>
-          <MessageList>
+          <MessageList className="message-list">
             {messages.map((msg, index) => (
               <Message
                 key={index}
