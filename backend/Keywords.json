@@ -18,5 +18,26 @@
   "howFucked": ["how fucked", "how fucked am i", "hwo fucked", "how bad am i", "my situation"],
   "canIAffordRent": ["rent", "afford rent", "can i rent", "rental affordability", "renting"],
   "canIAffordToLive": ["live", "can i live", "afford to live", "living expenses", "survival"],
-  "canIAffordFood": ["food", "can i eat", "afford food", "nutrition", "meal cost", "groceries"]
+  "canIAffordFood": ["food", "can i eat", "afford food", "nutrition", "meal cost", "groceries"],
+  "monthMap": {
+    "january": "SPJan",
+    "janury": "SPJan",
+    "february": "SPFeb",
+    "febuary": "SPFeb",
+    "march": "SPMar",
+    "april": "SPApr",
+    "may": "SPMay",
+    "june": "SPJun",
+    "july": "SPJul",
+    "august": "SPAug",
+    "augst": "SPAug",
+    "september": "SPSep",
+    "septmber": "SPSep",
+    "october": "SPOct",
+    "octber": "SPOct",
+    "november": "SPNov",
+    "novmber": "SPNov",
+    "december": "SPDec",
+    "decmber": "SPDec"
+  }
 }

@@ -26,20 +26,7 @@ function getFinancialData() {
 }
 
 function calculateTotalSpending(userRecord, startMonth, endMonth) {
-  const monthMap = { // Move this to the keyword
-    "january": "SPJan",
-    "february": "SPFeb",
-    "march": "SPMar",
-    "april": "SPApr",
-    "may": "SPMay",
-    "june": "SPJun",
-    "july": "SPJul",
-    "august": "SPAug",
-    "september": "SPSep",
-    "october": "SPOct",
-    "november": "SPNov",
-    "december": "SPDec"
-  };
+  const monthMap = keywords.monthMap;
 
   let totalSpending = 0;
   let addMonths = false;
@@ -60,20 +47,7 @@ function calculateTotalSpending(userRecord, startMonth, endMonth) {
 }
 
 function calculateMonthlySavings(userRecord, month) {
-  const monthMap = {  // Move this to the keyword
-    "january": "SPJan",
-    "february": "SPFeb",
-    "march": "SPMar",
-    "april": "SPApr",
-    "may": "SPMay",
-    "june": "SPJun",
-    "july": "SPJul",
-    "august": "SPAug",
-    "september": "SPSep",
-    "october": "SPOct",
-    "november": "SPNov",
-    "december": "SPDec"
-  };
+  const monthMap = keywords.monthMap;
 
   const spending = userRecord.spending[monthMap[month.toLowerCase()]] || 0;
   const income = userRecord.income;
@@ -118,26 +92,13 @@ function generateResponse(message, userInfo, userContext) {
     } else {
       return 'Please specify what you would like to know about (e.g., spendings, savings, overview stocks, income, other).';
     }
-  } else if (userContext.topic === 'spending') {  //Kero Please work on Adding Keyowrds for savings and Spendings cases below. It should work on all possible queries regarding this
+  } else if (userContext.topic === 'spending') {
     if (lowerCaseMessage.includes('total')) {
       const totalSpending = Object.values(userRecord.spending).reduce((acc, val) => acc + val, 0);
       return `Your total spendings are $${totalSpending}. Would you like to know for a particular month or year?`;
     } else if (lowerCaseMessage.includes('for')) {
       const query = lowerCaseMessage.split('for')[1].trim();
-      const monthMap = {
-        "january": "SPJan",
-        "february": "SPFeb",
-        "march": "SPMar",
-        "april": "SPApr",
-        "may": "SPMay",
-        "june": "SPJun",
-        "july": "SPJul",
-        "august": "SPAug",
-        "september": "SPSep",
-        "october": "SPOct",
-        "november": "SPNov",
-        "december": "SPDec"
-      };
+      const monthMap = keywords.monthMap;
       if (monthMap[query.toLowerCase()]) {
         const spending = userRecord.spending[monthMap[query.toLowerCase()]] || 0;
         return `Your spendings for ${query} are $${spending}.`;
@@ -160,20 +121,7 @@ function generateResponse(message, userInfo, userContext) {
       return `Your total savings are $${totalSavings}.`;
     } else if (lowerCaseMessage.includes('for')) {
       const query = lowerCaseMessage.split('for')[1].trim();
-      const monthMap = {
-        "january": "SPJan",
-        "february": "SPFeb",
-        "march": "SPMar",
-        "april": "SPApr",
-        "may": "SPMay",
-        "june": "SPJun",
-        "july": "SPJul",
-        "august": "SPAug",
-        "september": "SPSep",
-        "october": "SPOct",
-        "november": "SPNov",
-        "december": "SPDec"
-      };
+      const monthMap = keywords.monthMap;
       if (monthMap[query.toLowerCase()]) {
         const savings = calculateMonthlySavings(userRecord, query);
         return `Your savings for ${query} are $${savings}.`;
@@ -184,78 +132,12 @@ function generateResponse(message, userInfo, userContext) {
       return 'I didn\'t understand that. Please specify total savings or savings for a particular month.';
     }
   } else if (userContext.topic === 'income') {
-    const incomeSources = userRecord.incomeSources;
-    if (lowerCaseMessage.includes('job')) {
-      return `Your income from job is $${incomeSources.job}.`;
-    } else if (lowerCaseMessage.includes('investments')) {
-      return `Your income from investments is $${incomeSources.investments}.`;
-    } else if (lowerCaseMessage.includes('other')) {
-      return `Your other income is $${incomeSources.other}.`;
-    } else {
-      return `Your income sources are: Job - $${incomeSources.job}, Investments - $${incomeSources.investments}, Other - $${incomeSources.other}.`;
-    }
-  } else if (userContext.topic === 'overview stocks') {
-    if (lowerCaseMessage.includes('stocks')) {
-      return `Your stocks are worth $${userRecord.assetOverview.find(a => a.includes('stocks')).split(': ')[1]}`;
-    } else if (lowerCaseMessage.includes('real estate')) {
-      return `Your real estate is worth $${userRecord.assetOverview.find(a => a.includes('realEstate')).split(': ')[1]}`;
-    } else if (lowerCaseMessage.includes('savings account')) {
-      return `Your savings account is worth $${userRecord.assetOverview.find(a => a.includes('savingsAccount')).split(': ')[1]}`;
-    } else if (lowerCaseMessage.includes('bonds')) {
-      return `Your bonds are worth $${userRecord.assetOverview.find(a => a.includes('bonds')).split(': ')[1]}`;
-    } else if (lowerCaseMessage.includes('retirement fund')) {
-      return `Your retirement fund is worth $${userRecord.assetOverview.find(a => a.includes('retirementFund')).split(': ')[1]}`;
-    } else {
-      return `Your asset overview is: ${userRecord.assetOverview.join(', ')}.`;
-    }
-
-  } else if (userContext.topic === 'other') {
-    for (const [category, categoryKeywords] of Object.entries(keywords)) {
-      if (categoryKeywords.some(keyword => lowerCaseMessage.includes(keyword))) {
-        switch (category) {
-          case 'assetOverview':
-            return `${userRecord.name}'s asset overview: ${userRecord.assetOverview.join(', ')}`;
-          case 'income':
-            return `${userRecord.name}'s income: $${JSON.stringify(userRecord.income)}`;
-          case 'debt':
-            return `${userRecord.name}'s debt: $${JSON.stringify(userRecord.debt)}`;
-          case 'investment':
-            return `${userRecord.name}'s investments: ${JSON.stringify(userRecord.investments)}`;
-          case 'insurance':
-            return `${userRecord.name}'s insurance policies: ${JSON.stringify(userRecord.insurances)}`;
-          case 'creditScore':
-            return `${userRecord.name}'s credit score: ${userRecord.creditScore}`;
-          case 'tax':
-            return `${userRecord.name}'s tax details: ${JSON.stringify(userRecord.taxes)}`;
-          case 'retirementFund':
-            return `${userRecord.name}'s retirement fund: $${userRecord.retirementFund}`;
-          case 'mortgage':
-            return `${userRecord.name}'s mortgage details: ${JSON.stringify(userRecord.mortgage)}`;
-          case 'rent':
-            return `${userRecord.name}'s rent details: ${JSON.stringify(userRecord.rent)}`;
-          case 'utilityBills':
-            return `${userRecord.name}'s utility bills: ${JSON.stringify(userRecord.utilityBills)}`;
-          case 'carLoan':
-            return `${userRecord.name}'s car loan details: ${JSON.stringify(userRecord.carLoan)}`;
-          case 'studentLoan':
-            return `${userRecord.name}'s student loan details: ${JSON.stringify(userRecord.studentLoan)}`;
-          case 'howFucked':
-            return `${userRecord.name}'s status: ${JSON.stringify(userRecord.HowFuckedAmI)}`;
-          case 'canIAffordRent':
-            return `${userRecord.name}'s rent status: ${JSON.stringify(userRecord.CanIAffordRent)}`;
-          case 'canIAffordToLive':
-            return `${userRecord.name}'s living status: ${JSON.stringify(userRecord.CanIAffordToLive)}`;
-          case 'canIAffordFood':
-            return `${userRecord.name}'s food status: ${JSON.stringify(userRecord.CanIAffordFood)}`;
-          default:
-            return 'I\'m sorry, I\'m not sure how to answer that. Ask me again!';
-        }
-      }
-    }
-    return 'I\'m sorry, I\'m not sure how to answer that. Ask me again!';
+    return `Your total income is $${userRecord.income}. Would you like to know more about your income sources?`;
+  } else if (userContext.topic === 'overview') {
+    return 'Here is your asset overview: ' + userRecord.assetOverview.join(', ');
   }
 
-  return 'I\'m sorry, I\'m not sure how to answer that. Ask me again! \n You can ask about your Savings or your Spendings';
+  return 'I didn\'t understand that. Please specify what you would like to know about (e.g., spendings, savings, overview stocks, income, other).';
 }
 
 module.exports = {
