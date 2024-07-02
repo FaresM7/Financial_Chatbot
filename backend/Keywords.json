@@ -15,8 +15,19 @@
   "utilityBills": ["utility bills", "electricity bill", "water bill", "internet bill", "utlity bills", "services", "utilities"],
   "carLoan": ["car loan", "auto loan", "car loon", "vehicle loan", "automobile loan", "car finance"],
   "studentLoan": ["student loan", "education loan", "student loen", "educational loan", "study loan", "tuition loan"],
-  "howFucked": ["how fucked", "how fucked am i", "hwo fucked", "how bad am i", "my situation"],
   "canIAffordRent": ["rent", "afford rent", "can i rent", "rental affordability", "renting"],
   "canIAffordToLive": ["live", "can i live", "afford to live", "living expenses", "survival"],
-  "canIAffordFood": ["food", "can i eat", "afford food", "nutrition", "meal cost", "groceries"]
+  "canIAffordFood": ["food", "can i eat", "afford food", "nutrition", "meal cost", "groceries"],
+  "SPJan": ["january", "jan", "01", "1"],
+  "SPFeb": ["february", "feb", "02", "2"],
+  "SPMar": ["march", "mar", "03", "3"],
+  "SPApr": ["april", "apr", "04", "4"],
+  "SPMay": ["may", "may", "05", "5"],
+  "SPJun": ["june", "jun", "06", "6"],
+  "SPJul": ["july", "jul", "07", "7"],
+  "SPAug": ["august", "aug", "08", "8"],
+  "SPSep": ["september", "sep", "09", "9"],
+  "SPOct": ["october", "oct", "10", "10"],
+  "SPNov": ["november", "nov", "11", "11"],
+  "SPDec": ["december", "dec", "12", "12"] 
 }
