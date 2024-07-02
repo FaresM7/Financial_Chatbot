@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
       const financialData = getFinancialData();
       const userRecord = financialData.users.find(u => u.name.toLowerCase() === userInfo.name.toLowerCase() && u.id === userInfo.id);
       if (userRecord) {
-        socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today? Would you like to ask about:\n- Spendings\n- Savings\n- Overview stocks\n- Income\n- Other`);
+        socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today? Would you like to ask about:\n- Spendings\n- Savings\n- Overview stocks\n- Income\n- Other\n by typing exit you leave there current questions.`);
       } else {
         socket.emit('message', 'Sorry, the provided ID is incorrect for the name you provided.');
         userInfo = {}; // Reset userInfo
