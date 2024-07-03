@@ -4,7 +4,7 @@
   "monthlyStatement": ["monthly statement", "statement for this month", "monthly report", "monthly summary", "monthy statement", "statement"],
   "assetOverview": ["asset overview", "overview of assets", "assets summary", "assets report", "assset overview", "portfolio", "assets"],
   "income": ["income", "earnings", "salary", "wage", "incum", "earn", "payment"],
-  "debt": ["debt", "loan", "borrow", "owe", "det", "owed", "credit"],
+  "debt": ["debt", "borrow", "owe", "det", "owed", "credit"],
   "investment": ["investment", "invest", "stocks", "bonds", "invstment", "investing", "portfolio"],
   "insurance": ["insurance", "coverage", "policy", "insurence", "insured", "security"],
   "creditScore": ["credit score", "credit rating", "credit scoer", "credit scroe", "score", "rating", "financial score"],
