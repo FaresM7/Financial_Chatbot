@@ -71,7 +71,7 @@ io.on('connection', (socket) => {
 
 // Serve the React app
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build', 'index.html')); // Adjusted path
+  res.sendFile(path.join(__dirname, '../build', 'index.html')); 
 });
 
 // Start the server

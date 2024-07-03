@@ -13,7 +13,7 @@ async function loadFinancialData() {
 
 async function loadKeywords() {
   try {
-    const data = await fs.readFile('./keywords.json', 'utf-8');
+    const data = await fs.readFile('./Keywords.json', 'utf-8');
     keywords = JSON.parse(data);
   } catch (err) {
     console.error('Error reading keywords file:', err);
