@@ -1,3 +1,4 @@
+const fs = require('fs');
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -9,8 +10,11 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+const privateKey = fs.readFileSync('./key.pem', 'utf8');
+const certificate = fs.readFileSync('./cert.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
+
 let lastResponses = [];
-console.log(lastResponses);
 let sameResponseCount = 0;
 
 // Serve static files from the React app
@@ -74,9 +78,8 @@ io.on('connection', (socket) => {
         sameResponseCount++;
         socket.emit('message', response);
         if (sameResponseCount >= 3) {
-          socket.emit('message', response);
           console.log("Same response received 3 times in a row. Reloading the page.");
-          socket.emit('message', "It seems you're stuck. I received this message 3 times. Let's start over.");
+          socket.emit('message', "It seems you're stuck. I received this message 4 times. Let's start over.");
           resetConversation();
         }
       } else {
@@ -87,7 +90,7 @@ io.on('connection', (socket) => {
       // Add the current response to the array
       lastResponses.push(response);
       // Keep only the last 3 responses
-      if (lastResponses.length > 3) {
+      if (lastResponses.length > 4) {
         lastResponses.shift();
       }
     }
