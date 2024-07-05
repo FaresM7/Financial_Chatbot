@@ -110,7 +110,7 @@ function Response(message, userInfo, userContext) {
     } else if (lowerCaseMessage.includes('savings')) {
       userContext.topic = null;
     } else {
-      return 'I didn\'t understand that. Please specify total spendings or spendings for a particular month, year, or range. \nUse the words total, for [month/year] or from [month/year] to [month/year]';
+      return 'I didn\'t understand that. Please specify total spendings or spendings for a particular month, year, or range. \nUse the words total, for [m/y] or from [m/y] to [m/y]';
     }
   } else if (userContext.topic === 'savings') {
     if (lowerCaseMessage.includes('total')) {
@@ -126,7 +126,7 @@ function Response(message, userInfo, userContext) {
         return `I didn't understand that. Please specify a valid month.`;
       }
     } else {
-      return 'I didn\'t understand that. Please specify total savings or savings for a particular month. \nUse the words total or for.';
+      return 'I didn\'t understand that. Please specify total savings or savings for a particular month. \nUse the words total or for [m/y].';
     }
   } else if (userContext.topic === 'income') {
     const incomeSources = userRecord.incomeSources;
