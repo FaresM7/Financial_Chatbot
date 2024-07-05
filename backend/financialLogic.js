@@ -53,7 +53,7 @@ function calculateMonthlySavings(userRecord, month) {
   return income - spending;
 }
 
-function generateResponse(message, userInfo, userContext) {
+function Response(message, userInfo, userContext) {
   if (!financialData) {
     return 'Financial data not available.';
   }
@@ -70,30 +70,23 @@ function generateResponse(message, userInfo, userContext) {
 
   const lowerCaseMessage = message.toLowerCase();
 
-  if (lowerCaseMessage.includes('exit')) {
-    userContext.topic = null;
-    return 'You have exited the current topic. You can now choose a new topic: spendings, savings, overview stocks, income, other';
-  }
-
-  if (!userContext.topic) {
-    if (lowerCaseMessage.includes('spending')) {
-      userContext.topic = 'spending';
-      return 'What would you like to know about spendings? (e.g., total spendings, spendings for a specific month, spendings for a specific year)';
-    } else if (lowerCaseMessage.includes('savings')) {
-      userContext.topic = 'savings';
-      return 'What would you like to know about savings? (e.g., total savings, savings for a specific month)';
-    } else if (lowerCaseMessage.includes('overview')) {
-      userContext.topic = 'overview';
-      return 'What would you like to know? stocks, real estate, savings account, bonds, retirement funds. '
-    } else if (lowerCaseMessage.includes('income')) {
-      userContext.topic = 'income';
-      return 'What would you like to know about your income sources? (e.g., job, investments, other)';
-    } else if (lowerCaseMessage.includes('other')) {
-      userContext.topic = 'other';
-      return 'What would you like to know? (e.g., mortgage, debt, tax,...)';
-    } else {
-      return 'Please specify what you would like to know about (e.g., spendings, savings, overview stocks, income, other).';
-    }
+  if (userContext.topic !== 'spending' && message.includes('spending')) {
+    userContext.topic = 'spending';
+    return 'What would you like to know about spendings? (e.g., total spendings, spendings for a specific month, spendings for a specific year)';
+  } else if (userContext.topic !== 'savings' && message.includes('savings')) {
+    userContext.topic = 'savings';
+    return 'What would you like to know about savings? (e.g., total savings, savings for a specific month)';
+  } else if (userContext.topic !== 'overview' && message.includes('overview')) {
+    userContext.topic = 'overview';
+    return 'What would you like to know? stocks, real estate, savings account, bonds, retirement funds. '
+  } else if (userContext.topic !== 'income' && message.includes('income')) {
+    userContext.topic = 'income';
+    return 'What would you like to know about your income sources? (e.g., job, investments, other)';
+  } else if (userContext.topic !== 'other' && message.includes('other')) {
+    userContext.topic = 'other';
+    return 'What would you like to know? (e.g., mortgage, debt, tax,...)';
+  } else if (!userContext.topic) {
+    return 'Please specify what you would like to know about (e.g., spendings, savings, overview stocks, income, other).';
   } else if (userContext.topic === 'spending') {
     if (lowerCaseMessage.includes('total')) {
       const totalSpending = Object.values(userRecord.spending).reduce((acc, val) => acc + val, 0);
@@ -108,14 +101,16 @@ function generateResponse(message, userInfo, userContext) {
         const spending = userRecord.spendingOverYears[query];
         return `Your spendings for ${query} are $${spending}.`;
       } else {
-        return `I didn't understand that. Please specify a valid month or year.`;
+        return `I didn't understand that. Please specify a valid month or year. \nIf you want to know 2024 please use the keyword 'total'.`;
       }
     } else if (lowerCaseMessage.includes('from') && lowerCaseMessage.includes('to')) {
       const [startMonth, endMonth] = lowerCaseMessage.split('from')[1].split('to').map(m => m.trim());
       const totalSpending = calculateTotalSpending(userRecord, startMonth, endMonth);
       return `Your total spendings from ${startMonth} to ${endMonth} are $${totalSpending}.`;
+    } else if (lowerCaseMessage.includes('savings')) {
+      userContext.topic = null;
     } else {
-      return 'I didn\'t understand that. Please specify total spendings or spendings for a particular month, year, or range.';
+      return 'I didn\'t understand that. Please specify total spendings or spendings for a particular month, year, or range. \nUse the words total, for [month/year] or from [month/year] to [month/year]';
     }
   } else if (userContext.topic === 'savings') {
     if (lowerCaseMessage.includes('total')) {
@@ -131,7 +126,7 @@ function generateResponse(message, userInfo, userContext) {
         return `I didn't understand that. Please specify a valid month.`;
       }
     } else {
-      return 'I didn\'t understand that. Please specify total savings or savings for a particular month.';
+      return 'I didn\'t understand that. Please specify total savings or savings for a particular month. \nUse the words total or for.';
     }
   } else if (userContext.topic === 'income') {
     const incomeSources = userRecord.incomeSources;
@@ -184,8 +179,6 @@ function generateResponse(message, userInfo, userContext) {
             return `${userRecord.name}'s car loan details: ${JSON.stringify(userRecord.carLoan)}`;
           case 'studentLoan':
             return `${userRecord.name}'s student loan details: ${JSON.stringify(userRecord.studentLoan)}`;
-          case 'howFucked':
-            return `${userRecord.name}'s status: ${JSON.stringify(userRecord.HowFuckedAmI)}`;
           case 'canIAffordRent':
             return `${userRecord.name}'s rent status: ${JSON.stringify(userRecord.CanIAffordRent)}`;
           case 'canIAffordToLive':
@@ -206,5 +199,5 @@ module.exports = {
   loadFinancialData,
   loadKeywords,
   getFinancialData,
-  generateResponse
+  Response
 };

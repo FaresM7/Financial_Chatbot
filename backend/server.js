@@ -3,7 +3,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { loadFinancialData, loadKeywords, getFinancialData, generateResponse } = require('./financialLogic.js');
+const { loadFinancialData, loadKeywords, getFinancialData, Response } = require('./financialLogic.js');
 
 const app = express();
 const server = http.createServer(app);
@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
       const financialData = getFinancialData();
       const userRecord = financialData.users.find(u => u.name.toLowerCase() === userInfo.name.toLowerCase() && u.id === userInfo.id);
       if (userRecord) {
-        socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today? Would you like to ask about:\n- Spendings\n- Savings\n- Overview stocks\n- Income\n- Other\n by typing exit you leave there current questions.`);
+        socket.emit('message', `Hello, ${userInfo.name}! How can I assist you today? Would you like to ask about:\n- Spendings\n- Savings\n- Overview stocks\n- Income\n- Other`);
       } else {
         socket.emit('message', 'Sorry, the provided ID is incorrect for the name you provided.');
         userInfo = {}; // Reset userInfo
@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
       }
     } else {
       // Once name and ID are provided, handle the user's queries
-      const response = generateResponse(message, userInfo, userContext);
+      const response = Response(message, userInfo, userContext);
       socket.emit('message', response);
     }
   });
