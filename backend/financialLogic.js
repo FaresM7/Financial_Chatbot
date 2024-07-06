@@ -139,8 +139,7 @@ function Response(message, userInfo, userContext) {
     } else {
       return `Your income sources are: Job - $${incomeSources.job}, Investments - $${incomeSources.investments}, Other - $${incomeSources.other}.`;
     }
-  } 
-  else if (userContext.topic === 'overview') {
+  } else if (userContext.topic === 'overview') {
     const userOverview = userRecord.assetOverview;
     if (lowerCaseMessage.includes('stocks')) {
       return `Your stocks are worth $${userOverview.stocks}`;
@@ -155,8 +154,9 @@ function Response(message, userInfo, userContext) {
     } else {
       return `I did not understand! Please specify what do you want to know.`;
     }
-    }else if (userContext.topic === 'other') {
+  } else if (userContext.topic === 'other') {
     for (const [category, categoryKeywords] of Object.entries(keywords)) {
+      //Array.isArray(categoryKeywords); 
       if (categoryKeywords.some(keyword => lowerCaseMessage.includes(keyword))) {
         switch (category) {
           case 'debt':
@@ -188,6 +188,8 @@ function Response(message, userInfo, userContext) {
           default:
             return 'I\'m sorry, I\'m not sure how to answer that. Ask me again!';
         }
+      } else {
+        return 'I didn\'t understand that. Please specify what you would like to know about (e.g., mortgage, debt, tax,...)'
       }
     }
 
