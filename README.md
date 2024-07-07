@@ -6,6 +6,9 @@ Marlis Wagner      Id:22301867\
 Kerollos Adel          Id:22303233\
 Mariyam	Saduakas   Id:22306078
 
+#Deployment link
+https://financial-chatbot-upworth.azurewebsites.net
+
 # How to run
 
 ## Downloas Lib:
