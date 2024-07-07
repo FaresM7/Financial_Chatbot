@@ -1,17 +1,18 @@
 const fs = require('fs');
 const express = require('express');
-const https = require('https');
+const http = require('http');
 const socketIo = require('socket.io');
 const bodyParser = require('body-parser');
 const path = require('path');
 const { loadFinancialData, loadKeywords, getFinancialData, Response } = require('./financialLogic.js');
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
 const privateKey = fs.readFileSync('./key.pem', 'utf8');
 const certificate = fs.readFileSync('./cert.pem', 'utf8');
-const credentials = { key: privateKey, cert: certificate };
-const httpsServer = https.createServer(credentials, app);
-const io = socketIo(httpsServer);
+const credentials = { key: privateKey, cert: certificate };
 
 let lastResponses = [];
 let sameResponseCount = 0;
@@ -28,6 +29,7 @@ Promise.all([loadFinancialData(), loadKeywords()]).then(() => {
 }).catch(err => {
   console.error('Failed to load financial data and keywords:', err);
 });
+
 
 // Socket.IO connection
 io.on('connection', (socket) => {
@@ -103,13 +105,15 @@ io.on('connection', (socket) => {
   });
 });
 
+
 // Serve the React app
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html')); 
 });
 
-// Start the HTTPS server
+
+// Start the server
 const PORT = process.env.PORT || 3000;
-httpsServer.listen(PORT, () => {
-  console.log(`HTTPS Server running on port ${PORT}`);
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
