@@ -28,4 +28,4 @@ Your app is ready to be deployed!
 
 ### `node server.js`
 
-To run the server on a local host of port 3000. Type: 'node .\backend\server.js'
+To run the server on a local host of port 3000. First navigate to the backend folder using "cd ./backend". Then run "node server.js".
