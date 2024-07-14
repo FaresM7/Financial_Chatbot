@@ -23,9 +23,9 @@ Name: Kero, ID: 5.
 Explore the chatbot here https://financial-chatbot-upworth.azurewebsites.net
 
 
-# How to run locally
+## How to run locally
 
-## Downloas Lib:
+### Downloas Lib:
 
 node.js (install from the internet https://nodejs.org/en/download/package-manager)
 
