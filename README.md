@@ -20,20 +20,10 @@ Name: Kero, ID: 5.
 
 ## Try It Out
 
-Explore the chatbot here https://financial-chatbot-upworth.azurewebsites.net \
+Explore the chatbot here https://financial-chatbot-upworth.azurewebsites.net
 
-# Members
 
-Fares Elbermawy    \
-Saad Alam          \
-Marlis Wagner      \
-Kerollos Adel      \
-Mariyam	Saduakas
-
-# Deployment link
-https://financial-chatbot-upworth.azurewebsites.net
-
-# How to run
+# How to run locally
 
 ## Downloas Lib:
 
