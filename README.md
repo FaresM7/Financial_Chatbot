@@ -13,7 +13,13 @@ This project is a financial chatbot designed to provide users with personalized 
 
 ## Try It Out
 
-Explore the chatbot here https://financial-chatbot-upworth.azurewebsites.net
+Explore the chatbot here https://financial-chatbot-upworth.azurewebsites.net \
+The chatbot is based on the idea of users login using their names and IDs. In the dataset there are five users with the names of our group members. Below is each name available and their respective ID: \
+Name: Saad, ID: 1 \
+Name: Maryam, ID: 2 \
+Name: Fares, ID: 3 \
+Name: Marlis, ID: 4 \
+Name: Kero, ID: 5.
 
 # Members
 
