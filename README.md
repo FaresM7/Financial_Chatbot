@@ -13,7 +13,7 @@ This project is a financial chatbot designed to provide users with personalized 
 
 ## Try It Out
 
-Explore the chatbot [here](Insert your URL here).
+Explore the chatbot here https://financial-chatbot-upworth.azurewebsites.net
 
 # Members
 
